@@ -1,0 +1,17 @@
+services:
+  postgres-container:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-seven}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-seven}
+      - POSTGRES_DB=${POSTGRES_DB:-seven}
+    volumes:
+      - .docker:/docker-entrypoint-initdb.d
+    ports:
+      - ${HOST_PORT:-5432}:5432
+    networks:
+      - seven_net
+networks:
+  seven_net:
+    name: seven_net
+    driver: bridge
